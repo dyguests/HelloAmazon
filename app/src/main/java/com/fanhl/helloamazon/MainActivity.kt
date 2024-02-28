@@ -26,7 +26,8 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_amazon).setOnClickListener {
             AuthorizationManager.authorize(
                 AuthorizeRequest.Builder(requestContext)
-                    .addScopes(ProfileScope.profile(), ProfileScope.postalCode())
+                    // .addScopes(ProfileScope.profile(), ProfileScope.postalCode())
+                    .addScopes(ProfileScope.profile())
                     .build()
             )
         }
