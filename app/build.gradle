@@ -5,22 +5,47 @@ plugins {
 
 android {
     namespace 'com.fanhl.helloamazon'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.fanhl.helloamazon"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        def localProperties = new Properties()
+        def localPropertiesFile = project.rootProject.file('local.properties')
+        if (localPropertiesFile.exists()) {
+            localProperties.load(localPropertiesFile.newDataInputStream())
+        }
 
+        debug {
+            storeFile file(localProperties.getProperty("key_path"))
+            storePassword localProperties.getProperty("store_password")
+            keyAlias localProperties.getProperty("key_alias")
+            keyPassword localProperties.getProperty("key_password")
+        }
+        release {
+            storeFile file(localProperties.getProperty("key_path"))
+            storePassword localProperties.getProperty("store_password")
+            keyAlias localProperties.getProperty("key_alias")
+            keyPassword localProperties.getProperty("key_password")
+        }
+    }
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
