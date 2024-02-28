@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                 /*您的应用现已获得请求范围授权*/
                 val msg = "您的应用现已获得请求范围授权 accessToken:${result.accessToken}"
                 Log.d(TAG, msg)
-                textView.text = msg
+                runOnUiThread { textView.text = msg }
             }
 
             /*尝试授权应用时出错。*/
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                 /*提示用户发生错误*/
                 val msg = "提示用户发生错误"
                 Log.d(TAG, msg)
-                textView.text = msg
+                runOnUiThread { textView.text = msg }
             }
 
             /*授权未完成便已取消。*/
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                 /*将UI重新设置为随时登录状态*/
                 val msg = "将UI重新设置为随时登录状态"
                 Log.d(TAG, msg)
-                textView.text = msg
+                runOnUiThread { textView.text = msg }
             }
         })
     }
